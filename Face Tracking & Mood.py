@@ -51,7 +51,7 @@ while True:
                     face_id += 1
                 prev_center = center
 
-            # Mouth landmarks
+            
             left_mouth = (int(points[61].x * w), int(points[61].y * h))
             right_mouth = (int(points[291].x * w), int(points[291].y * h))
             top_lip = (int(points[13].x * w), int(points[13].y * h))
@@ -60,12 +60,12 @@ while True:
             mouth_width = distance(left_mouth, right_mouth)
             mouth_open = distance(top_lip, bottom_lip)
 
-            # Eye landmarks
+            
             left_eye_top = (int(points[159].x * w), int(points[159].y * h))
             left_eye_bottom = (int(points[145].x * w), int(points[145].y * h))
             eye_open = distance(left_eye_top, left_eye_bottom)
 
-            # Emotion logic
+            
             if mouth_open > 25 and eye_open > 6:
                 emotion = "Surprised"
             elif mouth_width > 60:
@@ -75,14 +75,12 @@ while True:
             else:
                 emotion = "Neutral"
 
-            # Draw face box
+            
             cv2.rectangle(frame, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
 
-            # Show ID
             cv2.putText(frame, f"ID: {face_id}", (x_min, y_min - 40),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
-
-            # Show emotion
+            
             cv2.putText(frame, emotion, (x_min, y_min - 10),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
 
